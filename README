@@ -1,0 +1,25 @@
+URemote is a very simple cross-platform remote control lib I wrote because every time I needed a remote I had to rewrite the whole thing
+
+The client sends simple UDP packets that contain a number of fields:
+0xXX - first byte = packet signature
+and then tags like this:
+0xTT - first byte = tag ID
+0xSS - length of data (can be 1 or 2 bytes wide or it can even be missing (see lengthForTag in the server and use setKnownLength in the client)
+0xSS bytes of data - the actual payload of the field
+
+or, you can add a "description" at the beginning of the packet (or even an empty one if you already know the order) (after the signature) that tells the server in which order and what fields follow, so 0xTT is no longer needed (see tagsForDescription on the server side and the description parameter to endPacket() on the client side)
+
+it's useful for simple tasks like sending accelerometer and button data to an emulator or to the iOS Simulator
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
