@@ -118,6 +118,7 @@ void URClient::setDestination(const std::string & hn,const std::string & prt) th
 
 void URClient::sendPacket(uint8_t signature, const URField * const * tags, int numtags, int flags, void * description, size_t descr_size) throw(std::string)
 {
+	if (!running) return;
 	size_t size = 1;
 	size_t lensize = 1;
 	if (flags & ShortLength)
@@ -183,6 +184,7 @@ void URClient::addField(const URField & tag)
 void URClient::endPacket(int flags, void * description, size_t descr_size) throw(std::string)
 {
 	sendPacket(signature,tags,nrt,flags,description,descr_size);
+	free(tags);
 	tags = NULL;
 	tm = nrt = 0;
 }
