@@ -2,7 +2,7 @@ URemote is a very simple cross-platform remote control lib I wrote because every
 
 The client sends simple UDP packets that contain a number of fields:
 0xXX - first byte = packet signature
-and then tags like this:
+and then fields like this:
 0xTT - first byte = tag ID
 0xSS - length of data (can be 1 or 2 bytes wide or it can even be missing (see lengthForTag in the server and use setKnownLength in the client)
 0xSS bytes of data - the actual payload of the field
