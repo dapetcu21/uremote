@@ -118,16 +118,19 @@ void URField::setString(std::string str)
 
 uint16_t URField::asInt16() const 
 {
+	if (len<2) return 0;
 	return ntohs(((uint16_t*)dt)[0]);
 }
 
 uint32_t URField::asInt32() const 
 {
+	if (len<4) return 0;
 	return ntohl(((uint32_t*)dt)[0]);
 }
 
 uint64_t URField::asInt64() const 
 {
+	if (len<8) return 0;
 	return ntohll(((uint64_t*)dt)[0]);
 }
 

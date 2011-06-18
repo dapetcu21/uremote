@@ -55,8 +55,7 @@ public:
 	
 	void setString(std::string str);
 	
-	//no length checking is made here...
-	uint8_t asInt8() const { return dt[0]; }
+	uint8_t asInt8() const { if (len<1) return 0; return dt[0]; };
 	uint16_t asInt16() const ;
 	uint32_t asInt32() const ;
 	uint64_t asInt64() const ;

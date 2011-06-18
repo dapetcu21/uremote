@@ -17,11 +17,17 @@
 #include "URClient.h"
 #include <cstdio>
 
-int main()
+int main(int argc, char * argv[])
 {
 	URClient client;
-	client.setHostname("localhost");
-	client.setPort("4432");
+	if (argc<2)
+		client.setHostname("localhost");
+	else
+		client.setHostname(argv[1]);
+	if (argc<3)
+		client.setPort("4432");
+	else
+		client.setPort(argv[2]);
 	try { client.start(); }
 	catch (std::string ex)
 		{printf("error: %s\n",ex.c_str());};

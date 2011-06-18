@@ -43,11 +43,14 @@ class CustomServer : public URServer
 	}
 };
 
-int main()
+int main(int argc, char * argv[])
 {
 	CustomServer srv;
 	srv.setSignature(0xAF);
-	srv.setPort("4432"); //and yes, 4432 is my favorite number, the problem is I use it as a port number in anything network-related I write :D
+	if (argc<2)
+		srv.setPort("4432"); //and yes, 4432 is my favorite number, the problem is I use it as a port number in anything network-related I write :D
+	else
+		srv.setPort(argv[1]);
 	srv.start();
 	srv.detachThread();
 #ifdef _WIN32

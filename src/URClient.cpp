@@ -63,6 +63,16 @@ void URClient::setRunning(bool val) throw(std::string)
 			URCleanup();
 			throw error_message;
 	    }
+	
+		int broadcast = 1;
+		if (setsockopt(sockf, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof broadcast) == -1)
+		{
+			error_message = URStringForError(ERRNO);
+			running=false;
+			close(sockf); 
+			URCleanup();
+			throw error_message;
+		}
 
 		if (connect(sockf,p->ai_addr,p->ai_addrlen)==-1)
 		{
