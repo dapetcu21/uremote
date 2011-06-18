@@ -211,15 +211,15 @@ void URServer::processPendingPackets()
 	uint8_t data[BUFLEN];
 	for (int i=0; i<nri; i++)
 	{
-    	if ((numbytes = recvfrom(socks[i], (datap)data, BUFLEN , 0, (struct sockaddr *)&their_addr, (socklen_t*)&addr_len)) == -1) 
+		while (1)
 		{
-			//if(ERRNO!=EWOULDBLOCK && ERRNO!=EAGAIN) 
-			//	;
-			continue;
-		}
-		 else
-		{
-			processPacket(data,numbytes);
+    		if ((numbytes = recvfrom(socks[i], (datap)data, BUFLEN , 0, (struct sockaddr *)&their_addr, (socklen_t*)&addr_len)) == -1) 
+			{
+				//if(ERRNO!=EWOULDBLOCK && ERRNO!=EAGAIN) 
+				//	;
+				break;
+			} else
+				processPacket(data,numbytes);
 		}
 	}
 	mutex_unlock(mutex);
